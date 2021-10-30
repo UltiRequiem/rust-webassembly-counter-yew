@@ -205,6 +205,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "rust-webassembly-counter-yew"
+version = "0.1.0"
+dependencies = [
+ "yew",
+]
+
+[[package]]
 name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -386,13 +393,6 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "yew-macro",
-]
-
-[[package]]
-name = "yew-app"
-version = "0.1.0"
-dependencies = [
- "yew",
 ]
 
 [[package]]
