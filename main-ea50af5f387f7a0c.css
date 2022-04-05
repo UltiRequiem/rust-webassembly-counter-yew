@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+}
+
+main {
+  background-color: rgb(236, 152, 42);
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  gap: 5%;
+
+  font-size: 50px;
+}
+
+
+button{
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
