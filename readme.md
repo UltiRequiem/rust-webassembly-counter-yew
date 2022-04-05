@@ -3,6 +3,8 @@
 > Yew is a modern Rust framework for creating multi-threaded front-end web apps
 > using WebAssembly.
 
+An example simple WebAssembly only-frontend app.
+
 ## Support
 
 Open an Issue, I will check it a soon as possible 👀

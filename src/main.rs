@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{console};
+use web_sys::console;
 use yew::prelude::*;
 
 #[wasm_bindgen]
@@ -22,7 +22,7 @@ fn app() -> Html {
         console::log_1(&"This shouldn't go lower than 0.".into());
 
         if *counter <= 0 {
-            alert(&"This value doesn't wanna be lower than one!");
+            alert("This value doesn't wanna be lower than one!");
             Callback::from(move |_| counter.set(*counter))
         } else {
             Callback::from(move |_| counter.set(*counter - 1))
