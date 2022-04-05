@@ -1,62 +1,83 @@
+use web_sys::{console, HtmlInputElement};
 use yew::prelude::*;
+use wasm_bindgen::prelude::*;
 
-enum Msg {
-    AddOne,
-    RemoveOne,
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
 }
 
-struct Model {
-    link: ComponentLink<Self>,
-    value: i64,
-}
+#[function_component(App)]
+fn app() -> Html {
+    let counter = use_state(|| 1);
 
-impl Component for Model {
-    type Message = Msg;
-    type Properties = ();
+    let increment_value = {
+        let counter = counter.clone();
+        Callback::from(move |_| counter.set(*counter + 1))
+    };
 
-    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, value: 0 }
-    }
+    let decrement_value = {
+        let counter = counter.clone();
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        match msg {
-            Msg::AddOne => {
-                self.value += 1;
-                true
-            }
-            Msg::RemoveOne => {
-                if self.value > 0 {
-                    self.value -= 1;
-                }
+        console::log_1(&"This shouldn't go lower than 0.".into());
 
-                true
-            }
+        if *counter <= 0 {
+            alert(&"This value doesn't wanna be lower than one!");
+            Callback::from(move |_| counter.set(*counter))
+        } else {
+            Callback::from(move |_| counter.set(*counter - 1))
         }
-    }
+    };
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        false
-    }
+    let input_node_ref = use_node_ref();
 
-    fn view(&self) -> Html {
-        html! {
-            <div id="container">
-            <main class=classes!("main")>
-                <h1>{ "A Counter" }</h1>
-                <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
-                <button onclick=self.link.callback(|_| Msg::RemoveOne)>{ "-1" }</button>
+    let input_value_handle = use_state(String::default);
+    let input_value = (*input_value_handle).clone();
 
-                <p>{ "The current count is " } { self.value }</p>
+    console::log_1(&format!("Input is {}", input_value).into());
 
-                <footer>
-                    <p>{ "© 2021 Eliaz Bobadilla (a.k.a UltiRequiem)" }</p>
-                </footer>
-            </main>
-            </div>
-        }
+    let onchange = {
+        let input_node_ref = input_node_ref.clone();
+
+        let counter = counter.clone();
+
+        Callback::from(move |_| {
+            let input = input_node_ref.cast::<HtmlInputElement>();
+
+            if let Some(input) = input {
+                let value = input.value();
+
+                input_value_handle.set(value);
+
+                // counter.set(*value.parse::<i32>().unwrap_or(0));
+            }
+        })
+    };
+
+    console::log_1(&"Hello using web-sys".into());
+
+    html! {
+        <main>
+           <p>
+                <b>{ " Current value: " }</b>
+                { *counter }
+            </p>
+            <button onclick={increment_value}>{ "Increment value" }</button>
+            <button onclick={decrement_value}>{ "Decrement value" }</button>
+
+             <label for="my-input">
+                { "Hack the current value:" }
+                <input ref={input_node_ref}
+                    {onchange}
+                    id="my-input"
+                    type="text"
+                    value={input_value}
+                />
+            </label>
+        </main>
     }
 }
 
 fn main() {
-    yew::start_app::<Model>();
+    yew::Renderer::<App>::new().render();
 }

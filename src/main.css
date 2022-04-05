@@ -1,26 +1,27 @@
-body {
+* {
   margin: 0;
-  padding: 0;
-  background: yellow;
 }
 
-#container {
-  margin: 5%;
-  background: red;
-  height: 75vh;
-}
+main {
+  background-color: rgb(236, 152, 42);
+  height: 100vh;
 
-.main {
-  padding: 5%;
   display: flex;
   flex-direction: column;
-}
-
-.main p {
+  justify-content: center;
+  align-items: center;
   text-align: center;
+
+  gap: 5%;
+
+  font-size: 50px;
 }
 
-.main button {
-  color: red;
-  margin: 2%;
+
+button{
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
 }

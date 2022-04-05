@@ -4,4 +4,7 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-yew = "0.18"
+yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
+web-sys = "0.3.56"
+wasm-bindgen = "0.2.79"
+
