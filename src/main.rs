@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{console, HtmlInputElement};
+use web_sys::{console};
 use yew::prelude::*;
 
 #[wasm_bindgen]
